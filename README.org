@@ -1,0 +1,280 @@
+
+* About
+
+emacs-wiki-journal is simple blog system base on emacs-wiki, 
+
+ - archive pages on month
+ - provide a welcome page
+ - rss output
+ - integrate with emacs-wiki seamless
+
+more you can visit http://suchang.net/blog
+
+
+* Configure
+
+my configuration is below:
+
+;;{{{ Emacs-Wiki 
+
+(when (string-equal system-type "windows-nt")
+
+  ;;load emacs-wiki 
+  ;; 
+  (add-to-list 'load-path "~/.elisp/emacs-wiki-2.72")
+  (require 'emacs-wiki)
+  (require ' htmlize)
+  ;; (require 'emacs-wiki-table)
+  ;; (require 'emacs-wiki-menu)
+  (require 'emacs-wiki-srctag)
+  (add-to-list 'emacs-wiki-src-tag-modes-alist
+               '("conf" . conf-mode))
+  (add-to-list 'emacs-wiki-src-tag-modes-alist
+               '("sh" . shell-script-mode))
+  (add-to-list 'emacs-wiki-src-tag-modes-alist
+               '("xml" . xml-mode))
+  (add-to-list 'emacs-wiki-src-tag-modes-alist
+               '("scheme" . scheme-mode))
+
+  ;; emacs-wiki-journal
+  ;; 
+  (add-to-list 'load-path "~/.elisp/emacs-wiki-journal")
+  (require 'emacs-wiki-journal)
+
+  ;; setting custom variab
+  ;; 
+  (custom-set-variables
+   '(emacs-wiki-anchor-on-word t)
+   '(emacs-wiki-index-page "WikiIndex")
+   '(emacs-wiki-journal-description "Lives and essay.")
+   '(emacs-wiki-journal-directory "~/workport/homesite/sources/blog")
+   '(emacs-wiki-journal-icons-subdirectory "../images")
+   '(emacs-wiki-journal-index-title-threshold t)
+   '(emacs-wiki-journal-publishing-directory "~/workport/homesite/publish/blog")
+   '(emacs-wiki-journal-rss-file-name "~/workport/homesite/publish/blog/rss.xml")
+   '(emacs-wiki-journal-rss-about-prefix "http://suchang.net/blog/")
+   '(emacs-wiki-journal-rss-link-prefix "http://suchang.net/blog/")
+   '(emacs-wiki-journal-self-link-name "Permalink")
+   ;;  '(emacs-wiki-journal-time-format "%-m月%-e日 周%a %R")
+   ;;  '(emacs-wiki-journal-time-format-category "%-m月%-e日 周%a %R")
+   '(emacs-wiki-journal-time-format nil) ; use user define time-format
+   '(emacs-wiki-journal-time-format-category nil) ; use user define time-format
+   '(emacs-wiki-journal-use-other-window nil)
+   '(emacs-wiki-journal-wiki "index")
+   '(emacs-wiki-charset-default "utf-8")
+   '(emacs-wiki-coding-default (quote utf-8))
+   '(emacs-wiki-create-backlinks t)
+   '(emacs-wiki-default-page "index")
+   '(emacs-wiki-interwiki-names
+     (quote
+      (("blog" lambda (tag) (emacs-wiki-project-interwiki-link "blog" tag))
+       ("cs" lambda (tag) (emacs-wiki-project-interwiki-link "cs" tag))
+       ("live" lambda (tag) (emacs-wiki-project-interwiki-link "live" tag))
+       ("muse" lambda (tag) (emacs-wiki-project-interwiki-link "muse" tag))
+       ("scratch" lambda (tag) (emacs-wiki-project-interwiki-link "scratch" tag))
+       ("slack" lambda (tag) (emacs-wiki-project-interwiki-link "slack" tag))
+       ("JournalWiki" lambda (tag) (emacs-wiki-project-interwiki-link "JournalWiki" tag))
+       ("GnuEmacs" . "http://www.gnu.org/software/emacs/emacs.html")
+       ("TheEmacsWiki" lambda (tag)
+        (concat "http://www.emacswiki.org/cgi-bin/wiki/" 
+                (or tag "SiteMap")))
+       ("MeatballWiki" lambda (tag)
+        (concat "http://www.usemod.com/cgi-bin/mb.pl?" (or tag "MeatballWiki")))
+       ;; Sites
+       ;; 
+       ("EmacsWikiProject" . "http://mwolson.org/projects/EmacsWikiMode.html") ;; Emacs Wiki
+       ("EmacsMuse" . "http://mwolson.org/projects/EmacsMuse.html") ;; Emacs Muse
+       ("HFUTBBS" . "http://www.hfutbbs.com")      ;; HFUT BBS
+       ("LinuxForum" . "http://www.linuxforum.net/") ;; Linuxforum
+       ;; subdirectories
+       ;; 
+       ("code" . "../code/")                   ;; code directory
+       ("doc" . "../doc/")                     ;; doc directory
+       ;; personal information
+       ;; 
+       ("EmailMe" . "mailto: suchaaa@gmail.com") ;; email
+;;       ("GuestBook" . "../Guestbook.html")       ;; guestbook
+       )))
+   '(emacs-wiki-directories 
+     (quote 
+      ("~/workport/homesite/sources/blog"
+       "~/workport/homesite/sources/cs"
+       "~/workport/homesite/sources/live"
+       "~/workport/homesite/sources/muse"
+       "~/workport/homesite/sources/scratch"
+       "~/workport/homesite/sources/slack"))
+     nil (emacs-wiki))
+   ;; '(emacs-wiki-footer-date-format "")
+   '(emacs-wiki-home-page "index")
+   '(emacs-wiki-home-project "homesite")
+   '(emacs-wiki-maintainer "mailto:suchaaa@gmail.com")
+   '(emacs-wiki-markup-nonexistent-link t)
+   '(emacs-wiki-mode-hook (quote
+                           (;; footnote-mode
+                            emacs-wiki-use-font-lock
+                            ;; footnote-mode
+                            outline-minor-mode)))
+   ;; blog, cs, live, muse, scratch, slack
+   ;; 
+   '(emacs-wiki-projects
+     (quote
+      (("blog" ;; blog
+        (emacs-wiki-directories "~/workport/homesite/sources/blog/")
+        (emacs-wiki-project-server-prefix . "../blog/")
+        (emacs-wiki-publishing-directory . "~/workport/homesite/publish/blog/")
+        (emacs-wiki-home-page . "index")
+        (emacs-wiki-index-page . "WikiIndex")
+        (emacs-wiki-publishing-header . "<lisp>(sucha-wiki-import-file \"../.blog-header\")</lisp>")
+        (emacs-wiki-publishing-footer . "<lisp>(sucha-wiki-import-file \"../.blog-footer\")</lisp>"))
+       ("cs" ;; small lab, or computer science
+        (emacs-wiki-directories "~/workport/homesite/sources/cs/")
+        (emacs-wiki-project-server-prefix . "../cs/")
+        (emacs-wiki-publishing-directory . "~/workport/homesite/publish/cs/")
+        (emacs-wiki-home-page . "index")
+        (emacs-wiki-index-page . "WikiIndex")
+        (emacs-wiki-publishing-header . "<lisp>(sucha-wiki-import-file \"../.site-header\")</lisp>")
+        (emacs-wiki-publishing-footer . "<lisp>(sucha-wiki-import-file \"../.site-footer\")</lisp>"))
+       ("live" ;; about my life
+        (emacs-wiki-directories "~/workport/homesite/sources/live/")
+        (emacs-wiki-project-server-prefix . "../live/")
+        (emacs-wiki-publishing-directory . "~/workport/homesite/publish/live/")
+        (emacs-wiki-home-page . "index")
+        (emacs-wiki-index-page . "WikiIndex")
+        (emacs-wiki-publishing-header . "<lisp>(sucha-wiki-import-file \"../.site-header\")</lisp>")
+        (emacs-wiki-publishing-footer . "<lisp>(sucha-wiki-import-file \"../.site-footer\")</lisp>"))
+       ("muse" ;; we need musing
+        (emacs-wiki-directories "~/workport/homesite/sources/muse/")
+        (emacs-wiki-project-server-prefix . "../muse/")
+        (emacs-wiki-publishing-directory . "~/workport/homesite/publish/muse/")
+        (emacs-wiki-home-page . "index")
+        (emacs-wiki-index-page . "WikiIndex")
+        (emacs-wiki-publishing-header . "<lisp>(sucha-wiki-import-file \"../.site-header\")</lisp>")
+        (emacs-wiki-publishing-footer . "<lisp>(sucha-wiki-import-file \"../.site-footer\")</lisp>"))
+       ("scratch" ;; scratch, draft, anything
+        (emacs-wiki-directories "~/workport/homesite/sources/scratch/")
+        (emacs-wiki-project-server-prefix . "../scratch/")
+        (emacs-wiki-publishing-directory . "~/workport/homesite/publish/scratch/")
+        (emacs-wiki-home-page . "index")
+        (emacs-wiki-index-page . "WikiIndex")
+        (emacs-wiki-publishing-header . "<lisp>(sucha-wiki-import-file \"../.site-header\")</lisp>")
+        (emacs-wiki-publishing-footer . "<lisp>(sucha-wiki-import-file \"../.site-footer\")</lisp>"))
+       ("slack" ;; here is Slackware
+        (emacs-wiki-directories "~/workport/homesite/sources/slack/")
+        (emacs-wiki-project-server-prefix . "../slack/")
+        (emacs-wiki-publishing-directory . "~/workport/homesite/publish/slack/")
+        (emacs-wiki-home-page . "index")
+        (emacs-wiki-index-page . "WikiIndex")
+        (emacs-wiki-publishing-header . "<lisp>(sucha-wiki-import-file \"../.site-header\")</lisp>")
+        (emacs-wiki-publishing-footer . "<lisp>(sucha-wiki-import-file \"../.site-footer\")</lisp>"))
+       )))
+   '(emacs-wiki-publish-url-coding-system (quote utf-8))
+   '(emacs-wiki-publishing-directory "~/workport/homesite/publish")
+   '(emacs-wiki-publishing-file-prefix "")
+   '(emacs-wiki-refresh-file-alist-p t)
+   '(emacs-wiki-show-project-name-p t)
+   '(emacs-wiki-use-mode-flags t)
+   '(emacs-wiki-xhtml-inline-css nil))
+
+  ;; setting custom faces
+  ;; 
+  (custom-set-faces
+   '(emacs-wiki-link-face ((t (:foreground "cyan" :weight bold))))
+   '(emacs-wiki-bad-link-face ((t (:foreground "coral" :weight bold))))
+   '(emacs-wiki-header-1 ((t (:inherit variable-pitch :weight bold :height 1.9))))
+   '(emacs-wiki-header-2 ((t (:inherit variable-pitch :weight bold :height 1.7))))
+   '(emacs-wiki-header-3 ((t (:inherit variable-pitch :weight bold :height 1.6))))
+   '(emacs-wiki-header-4 ((t (:inherit variable-pitch :slant italic :weight normal :height 1.3))))
+   '(emacs-wiki-header-5 ((t (:inherit variable-pitch :slant italic :weight normal :height 1.2))))
+   '(emacs-wiki-header-6 ((t (:inherit variable-pitch :slant italic :weight normal :height 1.2)))))
+
+  ;; emacs-wiki auto-publish, added my hack
+  ;; 
+  (defun sacha-emacs-wiki-auto-publish()
+    (when (derived-mode-p 'emacs-wiki-mode)
+      (unless emacs-wiki-publishing-p
+        (let ((emacs-wiki-publishing-p t)
+              (emacs-wiki-after-wiki-publish-hook nil)
+              (buffer-file-coding-system 'utf-8-unix))
+          (emacs-wiki-journal-publish-this-page)
+          ;;(emacs-wiki-publish-index)
+          ))))
+
+  (add-hook 'emacs-wiki-mode-hook
+            (lambda () (add-hook 'after-save-hook
+                                 'sacha-emacs-wiki-auto-publish
+                                 nil t)))
+
+  ;; time-format for entries' title and categorys' title
+  ;; 
+  (defun emacs-wiki-journal-user-definite-time-format ()
+    "If emacs-wiki-journal-time-format set to nil, it will 
+  display your own time string format in entries."
+    (format "%s年%s月%s日 %s %s"
+            (string-to-number (format-time-string "%-y"))
+            (string-to-number (format-time-string "%-m"))
+            (format-time-string "%-e")
+            (let
+                ((weekday (string-to-number
+                           (format-time-string "%u"))))
+              (cond 
+               ((= weekday 1) (concat "周一"))
+               ((= weekday 2) (concat "周二"))
+               ((= weekday 3) (concat "周三"))
+               ((= weekday 4) (concat "周四"))
+               ((= weekday 5) (concat "周五"))
+               ((= weekday 6) (concat "周六"))
+               ((= weekday 7) (concat "周日"))))
+            (format-time-string "%R")))
+
+  (defun emacs-wiki-journal-user-definite-format-category ()
+    "If emacs-wiki-journal-time-format-category set to nil, it 
+   will display your own time string format in category."
+    (format "%s月%s日 %s %s"
+            (string-to-number (format-time-string "%-m"))
+            (format-time-string "%-e")
+            (let
+                ((weekday (string-to-number
+                           (format-time-string "%u"))))
+              (cond 
+               ((= weekday 1) (concat "周一"))
+               ((= weekday 2) (concat "周二"))
+               ((= weekday 3) (concat "周三"))
+               ((= weekday 4) (concat "周四"))
+               ((= weekday 5) (concat "周五"))
+               ((= weekday 6) (concat "周六"))
+               ((= weekday 7) (concat "周日"))))
+            (format-time-string "%R")))
+
+
+  ;; import outer template file
+  ;; 
+  (defun sucha-wiki-import-file (file)
+    (if (file-readable-p file)
+        (ignore (insert-file-contents file))))
+
+  ;; from ChunYe Wang's Emacs tips
+  ;; 
+  (defun wcy-wiki-input-special-character ()
+    "Use to input special character."
+    (interactive)
+    (let* ((c (read-char "Character:"))
+           (x (emacs-wiki-escape-html-string (string c))))
+      (insert x)))
+
+  (define-key emacs-wiki-mode-map (kbd "C-c i") 'wcy-wiki-input-special-character)
+
+  ;; add something to my web blog anytime
+  ;; 
+  (global-set-key [(C-f12)] 'emacs-wiki-journal-add-entry)
+
+  ;; find wiki files
+  ;; 
+  (defun sucha-wiki-find-file ()
+    "Find the wiki file in wiki directorys"
+    (interactive)
+    (find-file (file-name-directory "~/workport/homesite/sources/")))
+
+  (global-set-key [(M-f12)] 'sucha-wiki-find-file)
+
+  )                                     ; windows-nt-special-setting
+;;}}}
