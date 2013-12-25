@@ -809,7 +809,7 @@ for today."
 	(find-file emacs-wiki-journal-rss-file-name)
 	(erase-buffer)
 	(insert (format emacs-wiki-journal-rss-initial-content
-			(format-time-string "%Y-%m-%dT%T%z")))
+                    (format-time-string "%Y-%m-%dT%T%z")))
 
 	(emacs-wiki-journal-find-file (emacs-wiki-journal-last-page))
 	(goto-char (point-min))
@@ -1094,6 +1094,7 @@ for today."
     (if emacs-wiki-journal-generate-rss-file
         (emacs-wiki-journal-generate-rss))
     (emacs-wiki-journal-prepare-welcome-page)
+
     (emacs-wiki-publish-files (list (emacs-wiki-journal-expand-file-name
                                      emacs-wiki-journal-wiki)) t))
   (emacs-wiki-publish-files (list buffer-file-name) t))
