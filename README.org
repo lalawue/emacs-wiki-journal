@@ -1,14 +1,14 @@
 
 * About
 
-emacs-wiki-journal is simple blog system base on emacs-wiki, 
+emacs-wiki-journal is simple blog system base on emacs-wiki, https://github.com/emacsmirror/emacs-wiki-mode.
 
  - archive pages on month
  - provide a welcome page
  - rss output
  - integrate with emacs-wiki seamless
 
-more you can visit http://suchang.net/blog
+more you can visit http://suchang.net/blog.
 
 
 * Configure
