@@ -7,7 +7,7 @@
 ;; Copyright (C) 2004, 2005 Michael Olson
 ;; Copyright (C) 2004 Yamagata Yoriyuki
 ;; Copyright (C) 2004, 2005 Yu Li
-;; Copyright (C) 2005, 2006, 2007, 2008 Sucha (suchaaa AT gmail DOT com)
+;; Copyright (C) 2005-2014, Sucha (suchaaa AT gmail DOT com)
 
 ;; Emacs Lisp Archive Entry
 ;; Filename: emacs-wiki-journal.el
