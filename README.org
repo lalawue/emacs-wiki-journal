@@ -8,7 +8,7 @@ emacs-wiki-journal is simple static blog system base on emacs-wiki, https://gith
  - rss output
  - integrate with emacs-wiki seamless
 
-take a look at the example http://suchang.net/blog, and an intro in Chinese http://suchang.net/cs/EmacsWikiJournal.html.
+take a look at the example http://suchang.org/blog, and an intro in Chinese http://suchang.org/cs/EmacsWikiJournal.html.
 
 
 * Configure
