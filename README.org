@@ -1,7 +1,7 @@
 
 * About
 
-emacs-wiki-journal is simple static blog system base on emacs-wiki, https://github.com/emacsmirror/emacs-wiki-mode.
+emacs-wiki-journal is simple static blog system base on emacs-wiki-mode, https://github.com/lalawue/emacs-wiki-mode.
 
  - archive pages on month
  - provide a welcome page
