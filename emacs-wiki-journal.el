@@ -86,7 +86,7 @@
 ;;      >
 ;;   <channel>
 ;;     <title>Sucha's Blog</title>
-;;     <link>http://suchang.org/blog/index.html</link>
+;;     <link>http://suchang.net/blog/index.html</link>
 ;;     <description>linux, emacs, programming, live and essay</description>
 ;;     <pubDate>%s</pubDate>
 ;;     <generator>emacs-wiki-journal</generator>
@@ -116,7 +116,7 @@
 ;;
 ;; And I also keep a document in http://scuhang.net/cs/EmacsWikiJournal.html,
 ;; all written in Chinese, and you can also find a sample config file in
-;; http://suchang.org/code/emacs-wiki-conf.el.html. I use emacs-wiki projects
+;; http://suchang.net/code/emacs-wiki-conf.el.html. I use emacs-wiki projects
 ;; for emacs-wiki-journal there.
 
 
@@ -770,7 +770,7 @@ for today."
      >
   <channel>
     <title>Sucha's Blog</title>
-    <link>http://suchang.org/blog/index.html</link>
+    <link>http://suchang.net/blog/index.html</link>
     <description>linux, emacs, programming, live and essay</description>
     <pubDate>%s</pubDate>
     <generator>emacs-wiki-journal</generator>
@@ -788,7 +788,7 @@ for today."
   :group 'emacs-wiki-journal)
 
 (defcustom emacs-wiki-journal-rss-link-prefix
-  "http://suchang.org/blog/"
+  "http://suchang.net/blog/"
   "Your blog site address. NEED last '/'."
   :type 'string
   :group 'emacs-wiki-journal)
